@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\StableDraw\\StableDrawNeuralNetworks\\VideoNN\\internlm2_5-7b-chat\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{E20823C4-CC7D-4B77-99CE-6E2D08CB54A7}|internlm.pyproj|C:\\StableDraw\\StableDrawNeuralNetworks\\VideoNN\\internlm2_5-7b-chat\\internlm.py||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{E20823C4-CC7D-4B77-99CE-6E2D08CB54A7}|internlm.pyproj|solutionrelative:internlm.py||{8B382828-6202-11D1-8870-0000F87579D2}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "internlm.py",
+              "DocumentMoniker": "C:\\StableDraw\\StableDrawNeuralNetworks\\VideoNN\\internlm2_5-7b-chat\\internlm.py",
+              "RelativeDocumentMoniker": "internlm.py",
+              "ToolTip": "C:\\StableDraw\\StableDrawNeuralNetworks\\VideoNN\\internlm2_5-7b-chat\\internlm.py",
+              "RelativeToolTip": "internlm.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAACOAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2024-07-10T03:16:41.501Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
