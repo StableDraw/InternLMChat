@@ -128,6 +128,8 @@ class InternLM2TokenizerFast(PreTrainedTokenizerFast):
         clean_up_tokenization_spaces=False,
         **kwargs,
     ):
+        self._add_bos_token = add_bos_token
+        self._add_eos_token = add_eos_token
         super().__init__(
             vocab_file=vocab_file,
             unk_token=unk_token,
@@ -141,8 +143,6 @@ class InternLM2TokenizerFast(PreTrainedTokenizerFast):
             clean_up_tokenization_spaces=clean_up_tokenization_spaces,
             **kwargs,
         )
-        self._add_bos_token = add_bos_token
-        self._add_eos_token = add_eos_token
         self.update_post_processor()
         self.vocab_file = vocab_file
 
