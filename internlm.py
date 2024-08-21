@@ -1,19 +1,10 @@
 import torch
-from os.path import isfile, exists
+from os.path import exists, realpath
 from os import mkdir
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-'''
-prompt = "diving"
-segments_duration = 8
-
-response, history = model.chat(tokenizer, f"I'm creating a clip from a neural network that generates video. The theme of my video is \"f{prompt}\". The clip consists of f{segments_duration} second segments. Please write prompts for the neural network that would describe each segment of this clip. Describe each segment separately. Write each prompt from the next line and no additional information", history=[])
-print(response)
-
-# Hello! How can I help you today?
-
-print(response)
-'''
+file_path = realpath(__file__)
+file_path = file_path[:file_path.rfind("\\") + 1]
 
 
 
@@ -23,7 +14,7 @@ def reset_history(user_id: str):
     Принимает строковый id пользователя
     '''
 
-    with open("users_history\\" + user_id + ".txt", "w"): #Очищаем содержимое файла пользователя
+    with open(file_path + "users_history\\" + user_id + ".txt", "w"): #Очищаем содержимое файла пользователя
         pass
 
 
@@ -37,7 +28,7 @@ def get_history(user_id: str) -> list:
 
     history = []
         
-    with open("users_history\\" + user_id + ".txt", "r") as f:
+    with open(file_path + "users_history\\" + user_id + ".txt", "r") as f:
         while True:
             line = f.readline() #Считываем строку из файла
             if not line: #Если она пуста - выходим
@@ -56,7 +47,7 @@ def save_history(history: list, user_id: str):
     Принимает историю переписки в виде списка строк и строковый id пользователя
     '''
 
-    with open("users_history\\" + user_id + ".txt", "w") as f:
+    with open(file_path + "users_history\\" + user_id + ".txt", "w") as f:
         f.writelines(str(item).replace("\n", "\\n") + "\n" for item in history) #построчно записывам историю переписки в файл
 
 
@@ -86,10 +77,10 @@ class InternLMChat():
         Инициализация класса нейронки для начала общения
         '''
         
-        if not exists("users_history"):
-            mkdir("users_history")
+        if not exists(file_path + "users_history"):
+            mkdir(file_path + "users_history")
 
-        model_path = "weights"
+        model_path = file_path + "weights"
 
         self.tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code = True)
 
@@ -121,18 +112,23 @@ class InternLMChat():
         return response
 
 
-    def text_to_text(self, prompt: str) -> str:
+    def text_to_text(self, prompt: str, history: list = []) -> str:
         '''
         Метод, генерирующий текстовый ответ на единственный текстовый запрос
-        Принимает текст
-        Возвращает текст
+        Принимает текст и список истори, опционально
+        Возвращает текст и историю
         '''
 
-        response, _ = self.model.chat(self.tokenizer, prompt, history = []) #Генерируем ответ на запрос
+        nn_history = history_to_nn_history(history = history) #Конвертируем историю в понятный нейронной сети формат
+
+        response, new_history = self.model.chat(self.tokenizer, prompt, history = nn_history) #Генерируем ответ на запрос
+
+        history.append(new_history[-1][0]) #Добавляем в общую историю запрос от пользователя
+        history.append(new_history[-1][1]) #Добавляем в общую историю ответ от нейронной сети
 
         torch.cuda.empty_cache() #Очищаем видеопамять
 
-        return response
+        return response, history
 
 
 
